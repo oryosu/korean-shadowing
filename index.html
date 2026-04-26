@@ -292,8 +292,119 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
     </div>
 
     <div class="ctrl-section">
-      <div class="label">気になった表現メモ</div>
-      <textarea id="memo-input" placeholder="例：진짜로? / 어떻게 된 거야?"></textarea>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div class="label" style="margin:0">気になった表現メモ</div>
+        <button class="btn btn-sm" onclick="toggleHelp()" id="help-toggle" style="font-size:12px;padding:4px 10px;color:var(--accent-text);border-color:var(--accent)">한글 入力ヘルプ</button>
+      </div>
+      <textarea id="memo-input" placeholder="例：진짜로? / 어떻게 된 거야?" lang="ko" autocorrect="off" autocomplete="off" spellcheck="false"></textarea>
+
+      <!-- Korean keyboard help panel -->
+      <div id="hangul-help" style="display:none;margin-top:10px">
+        <div style="background:var(--surface);border-radius:14px;padding:14px;border:1px solid var(--border)">
+
+          <!-- Step 1: Add keyboard -->
+          <div style="font-size:13px;font-weight:500;margin-bottom:10px">iPhoneへの韓国語キーボード追加</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+              <div style="font-size:13px;line-height:1.5">「設定」→「一般」→「キーボード」→「キーボード」→「新しいキーボードを追加」</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+              <div style="font-size:13px;line-height:1.5">「韓国語」を選択 →「標準」を選ぶ（10キーより入力しやすい）</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+              <div style="font-size:13px;line-height:1.5">メモ欄をタップしてキーボードを開き、🌐ボタンを長押しして「韓国語」に切替</div>
+            </div>
+          </div>
+
+          <hr style="border:none;border-top:1px solid var(--border);margin:0 0 12px">
+
+          <!-- Keyboard layout -->
+          <div style="font-size:13px;font-weight:500;margin-bottom:8px">標準キーボード配列</div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:8px">자음（子音）＋모음（母音）を順番に押すと自動で組み合わさります</div>
+
+          <div style="background:var(--surface2);border-radius:10px;padding:10px;margin-bottom:10px">
+            <div style="font-size:11px;color:var(--text2);margin-bottom:6px">子音（자음）</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px">
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅂ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅈ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㄷ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㄱ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅅ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅁ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㄴ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅇ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㄹ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅎ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅋ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅌ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅊ</span>
+              <span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:15px">ㅍ</span>
+            </div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:6px">母音（모음）</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap">
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅛ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅕ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅑ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅐ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅔ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅗ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅓ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅏ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅣ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅠ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅜ</span>
+              <span style="background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:5px 8px;font-size:15px;color:var(--accent-text)">ㅡ</span>
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div style="font-size:13px;font-weight:500;margin-bottom:8px">入力のコツ</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:baseline;gap:8px;font-size:13px">
+              <span style="color:var(--text2);flex-shrink:0">濃音</span>
+              <span>子音キーを長押し → ㅂ→<strong>ㅃ</strong>　ㅈ→<strong>ㅉ</strong>　ㄷ→<strong>ㄸ</strong>　ㄱ→<strong>ㄲ</strong>　ㅅ→<strong>ㅆ</strong></span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:8px;font-size:13px">
+              <span style="color:var(--text2);flex-shrink:0">複合母音</span>
+              <span>ㅗ＋ㅏ→<strong>ㅘ</strong>　ㅜ＋ㅓ→<strong>ㅝ</strong>　ㅗ＋ㅐ→<strong>ㅚ</strong>（自動で合成）</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:8px;font-size:13px">
+              <span style="color:var(--text2);flex-shrink:0">받침</span>
+              <span>母音の後に子音を押すと自動で下につく　가＋ㅇ→<strong>강</strong></span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:8px;font-size:13px">
+              <span style="color:var(--text2);flex-shrink:0">切替</span>
+              <span>🌐を長押しして言語選択、またはスペースバー左の🌐をタップ</span>
+            </div>
+          </div>
+
+          <!-- Practice examples -->
+          <hr style="border:none;border-top:1px solid var(--border);margin:12px 0">
+          <div style="font-size:13px;font-weight:500;margin-bottom:8px">練習してみよう</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div onclick="insertText('진짜')" style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--surface2);border-radius:10px;cursor:pointer;active:opacity:0.7">
+              <div><span style="font-size:17px;font-weight:500">진짜</span><span style="font-size:12px;color:var(--text2);margin-left:8px">ほんとに・マジで</span></div>
+              <span style="font-size:12px;color:var(--accent-text)">タップで挿入</span>
+            </div>
+            <div onclick="insertText('어떻게')" style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--surface2);border-radius:10px;cursor:pointer">
+              <div><span style="font-size:17px;font-weight:500">어떻게</span><span style="font-size:12px;color:var(--text2);margin-left:8px">どうやって・どのように</span></div>
+              <span style="font-size:12px;color:var(--accent-text)">タップで挿入</span>
+            </div>
+            <div onclick="insertText('그러니까')" style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--surface2);border-radius:10px;cursor:pointer">
+              <div><span style="font-size:17px;font-weight:500">그러니까</span><span style="font-size:12px;color:var(--text2);margin-left:8px">だから・つまり</span></div>
+              <span style="font-size:12px;color:var(--accent-text)">タップで挿入</span>
+            </div>
+            <div onclick="insertText('뭐야')" style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--surface2);border-radius:10px;cursor:pointer">
+              <div><span style="font-size:17px;font-weight:500">뭐야</span><span style="font-size:12px;color:var(--text2);margin-left:8px">なにそれ・なんだよ</span></div>
+              <span style="font-size:12px;color:var(--accent-text)">タップで挿入</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 
@@ -775,6 +886,28 @@ function showToast(msg) {
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ── Hangul help ───────────────────────────────────────────────────────────────
+function toggleHelp() {
+  const panel = document.getElementById('hangul-help');
+  const btn = document.getElementById('help-toggle');
+  const open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  btn.style.background = open ? '' : 'var(--accent-light)';
+}
+
+function insertText(word) {
+  const ta = document.getElementById('memo-input');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const before = ta.value.slice(0, start);
+  const after = ta.value.slice(end);
+  const sep = before.length > 0 && !before.endsWith('\n') && !before.endsWith(' ') ? ' / ' : '';
+  ta.value = before + sep + word + after;
+  const pos = before.length + sep.length + word.length;
+  ta.setSelectionRange(pos, pos);
+  ta.focus();
+  showToast(word + ' を挿入しました');
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
