@@ -229,6 +229,22 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 
   <!-- ── PRACTICE ── -->
   <div class="screen active" id="screen-practice">
+
+    <!-- YouTube login bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border-radius:12px;padding:10px 13px;margin-bottom:10px;gap:10px">
+      <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+        <div id="login-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text2);flex-shrink:0;transition:background 0.3s"></div>
+        <div style="min-width:0">
+          <div style="font-size:13px;font-weight:500" id="login-status-text">YouTubeログイン未確認</div>
+          <div style="font-size:11px;color:var(--text2)">Premium会員はログイン中のみ広告なし</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <button class="btn btn-sm" onclick="checkLogin()" style="font-size:12px">確認</button>
+        <a href="https://www.youtube.com/signin" target="_blank" class="btn btn-sm btn-primary" style="font-size:12px;text-decoration:none" onclick="setTimeout(checkLogin,3000)">ログイン</a>
+      </div>
+    </div>
+
     <div class="url-row">
       <input type="url" id="url-input" placeholder="YouTube URLを貼り付け" inputmode="url" autocomplete="off" autocorrect="off" spellcheck="false">
       <button class="btn btn-primary" style="padding:11px 16px;white-space:nowrap" onclick="loadVideo()">読込</button>
@@ -887,6 +903,45 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
+
+// ── YouTube login check ──────────────────────────────────────────────────────
+// The embedded player shares the browser's cookies automatically.
+// We verify by fetching a tiny YouTube endpoint that requires auth.
+async function checkLogin() {
+  const dot  = document.getElementById('login-dot');
+  const text = document.getElementById('login-status-text');
+  dot.style.background = '#f0b429';
+  text.textContent = '確認中...';
+  try {
+    // youtube.com/getAccountSwitcherEndpoint returns 200 only when logged in
+    const r = await fetch('https://www.youtube.com/getAccountSwitcherEndpoint', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json'},
+      body: '{}',
+      signal: AbortSignal.timeout(4000)
+    });
+    if (r.ok) {
+      dot.style.background = '#1D9E75';
+      text.textContent = 'YouTubeにログイン済み ✓';
+    } else {
+      setLoggedOut(dot, text);
+    }
+  } catch {
+    // CORS will block this on desktop — means the request reached YouTube (logged in)
+    // If truly offline or blocked, treat as unknown
+    dot.style.background = '#f0b429';
+    text.textContent = 'ブラウザでYouTubeを開いてログインしてください';
+  }
+}
+
+function setLoggedOut(dot, text) {
+  dot.style.background = '#c0392b';
+  text.textContent = '未ログイン — ログインボタンを押してください';
+}
+
+// Auto-check on load after a short delay
+setTimeout(checkLogin, 1200);
 
 // ── Hangul help ───────────────────────────────────────────────────────────────
 function toggleHelp() {
